@@ -1,0 +1,15 @@
+meta {
+  name: Devolver libro (Usuario)
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{baseUrl}}/api/v1/operations/books/{{bookId}}/return
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{tokenUsuario}}
+}

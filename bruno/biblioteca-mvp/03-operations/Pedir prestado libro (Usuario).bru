@@ -1,0 +1,15 @@
+meta {
+  name: Pedir prestado libro (Usuario)
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{baseUrl}}/api/v1/operations/books/{{bookId}}/borrow
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{tokenUsuario}}
+}

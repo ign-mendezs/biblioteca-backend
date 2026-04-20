@@ -1,0 +1,15 @@
+meta {
+  name: Reservar libro (Usuario)
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}/api/v1/operations/books/{{bookId}}/reserve
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{tokenUsuario}}
+}

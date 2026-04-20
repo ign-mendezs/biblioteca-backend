@@ -1,0 +1,22 @@
+meta {
+  name: Transferir libro (Usuario)
+  type: http
+  seq: 8
+}
+
+post {
+  url: {{baseUrl}}/api/v1/operations/books/{{bookId}}/transfer
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{tokenUsuario}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "toUserId": "{{transferToUserId}}"
+  }
+}
