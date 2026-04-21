@@ -15,11 +15,11 @@ import java.security.Principal;
 @RequiredArgsConstructor
 public class BookOperationsController {
 
-    private final BookOperations bookOperations; // Usando el nombre limpio que definimos en la arquitectura
+    private final BookOperations bookOperations;
 
     @PostMapping("/{id}/reserve")
     public BookResponse reserveBook(@PathVariable String id, Principal principal) {
-        // principal.getName() nos devuelve el email (nuestro userId) del JWT
+
         Book book = bookOperations.reserveBook(id, principal.getName());
         return BookResponse.fromDomain(book);
     }

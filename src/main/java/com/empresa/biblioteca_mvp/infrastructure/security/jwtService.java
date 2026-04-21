@@ -16,7 +16,7 @@ import java.util.function.Function;
 @Service
 public class jwtService {
 
-    // Para un MVP usamos una llave hardcodeada en Base64 (En prod iría en variables de entorno)
+    // Para un MVP usamos una llave hardcodeada en Base64
     // Esta llave debe tener al menos 256 bits (32 caracteres).
     private static final String SECRET_KEY = "VGhpcy1pcy1hLXZlcnktc2VjdXJlLWtleS1mb3Itb3VyLW12cC1wcm9qZWN0";
 

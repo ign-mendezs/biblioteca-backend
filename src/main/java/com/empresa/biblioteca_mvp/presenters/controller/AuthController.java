@@ -35,7 +35,7 @@ public class AuthController {
         // 3. Generamos el JWT
         String jwtToken = jwtService.generateToken(user);
 
-        // 4. Extraemos el rol (ej. "ROLE_LIBRARIAN") para enviarlo al frontend
+        // 4. Extraemos el rol para enviarlo al frontend
         String role = user.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .findFirst()

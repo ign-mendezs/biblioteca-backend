@@ -9,9 +9,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class UseCaseConfig {
 
-    // Spring buscará automáticamente una implementación de BookRepositoryPort 
-    // (nuestro BookRepositoryAdapter) y la inyectará aquí.
-
     @Bean
     public BookManagement bookManagement(BookRepositoryPort bookRepositoryPort) {
         return new BookManagement(bookRepositoryPort);

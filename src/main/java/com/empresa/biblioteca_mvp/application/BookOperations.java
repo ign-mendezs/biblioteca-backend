@@ -43,7 +43,6 @@ public class BookOperations {
     public Book transferBook(String bookId, String fromUserId, String toUserId) {
         Book book = getBookOrThrow(bookId);
 
-        // Validación de seguridad para que un usuario no transfiera libros de otros
         if (!fromUserId.equals(book.getActiveUserId())) {
             throw new IllegalStateException("Solo el usuario actual del préstamo puede transferirlo.");
         }

@@ -8,7 +8,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Getter
-@Setter // Usamos Setter para mutaciones desde el caso de uso/persistencia, pero la lógica va en los métodos
+@Setter
 @Builder
 @AllArgsConstructor
 public class Book {
@@ -16,8 +16,8 @@ public class Book {
     private String title;
     private String author;
     private BookStatus status;
-    private String activeUserId; // ID del usuario que lo tiene reservado o prestado
-    private LocalDateTime endTime; // Cuándo expira la reserva o el préstamo
+    private String activeUserId;
+    private LocalDateTime endTime; 
 
     // --- LÓGICA DE NEGOCIO ---
 
@@ -42,7 +42,6 @@ public class Book {
     }
 
     public void borrow(String userId, LocalDateTime now) {
-        // Puede prestarlo si está disponible, O si él mismo lo tiene reservado y no ha expirado
         boolean isReservedByMe = this.status == BookStatus.RESERVED &&
                 this.activeUserId.equals(userId) &&
                 !now.isAfter(this.endTime);

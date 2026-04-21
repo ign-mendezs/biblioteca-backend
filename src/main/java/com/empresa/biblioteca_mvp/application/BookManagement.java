@@ -41,7 +41,6 @@ public class BookManagement {
         Book book = bookRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Libro no encontrado con ID: " + id));
 
-        // Regla de negocio básica: no borrar si está prestado
         if (book.getStatus() != BookStatus.AVAILABLE) {
             throw new IllegalStateException("No se puede eliminar un libro que está reservado o prestado.");
         }

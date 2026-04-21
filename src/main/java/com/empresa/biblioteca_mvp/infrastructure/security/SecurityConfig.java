@@ -50,13 +50,13 @@ public class SecurityConfig {
         return source;
     }
 
-    // 1. Usuarios en Memoria (Nuestra base de datos falsa para el MVP)
+    // 1. Usuarios en Memoria
     @Bean
     public UserDetailsService userDetailsService() {
         UserDetails librarian = User.builder()
                 .username("bibliotecario@empresa.com")
                 .password(passwordEncoder().encode("admin123"))
-                .roles("LIBRARIAN") // Spring le agrega internamente el prefijo "ROLE_"
+                .roles("LIBRARIAN")
                 .build();
 
         UserDetails commonUser = User.builder()
@@ -79,7 +79,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .csrf(AbstractHttpConfigurer::disable) // Desactivamos CSRF porque usamos JWT (Stateless)
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/v1/auth/**").permitAll() // Rutas públicas (Login)
                         .requestMatchers("/h2-console/**").permitAll()  // Permitir acceso a H2
@@ -87,10 +87,9 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/operations/**").hasAnyRole("USER", "LIBRARIAN") // Usuarios (y bibliotecarios por conveniencia)
                         .anyRequest().authenticated() // Cualquier otra ruta debe estar autenticada
                 )
-                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // No guardar sesiones en memoria (100% REST)
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class); // Colocar nuestro filtro JWT antes del filtro de usuario/password estándar
+                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
-        // Excepción necesaria para que la consola H2 funcione con frames
         http.headers(headers -> headers.frameOptions(frame -> frame.disable()));
 
         return http.build();

@@ -3,7 +3,7 @@ package com.empresa.biblioteca_mvp.presenters.controller;
 
 import com.empresa.biblioteca_mvp.application.BookManagement;
 import com.empresa.biblioteca_mvp.domain.model.Book;
-import com.empresa.biblioteca_mvp.presenters.dto.BookResponse;
+import com.empresa.biblioteca_mvp.presenters.dto.AdminBookResponse;
 import com.empresa.biblioteca_mvp.presenters.dto.CreateBookRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -21,23 +21,23 @@ public class BookManagementController {
     private final BookManagement management;
 
     @GetMapping
-    public List<BookResponse> getAllBooks() {
+    public List<AdminBookResponse> getAllBooks() {
         return management.getAllBooks().stream()
-                .map(BookResponse::fromDomain)
+                .map(AdminBookResponse::fromDomain)
                 .collect(Collectors.toList());
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public BookResponse createBook(@Valid @RequestBody CreateBookRequest request) {
+    public AdminBookResponse createBook(@Valid @RequestBody CreateBookRequest request) {
         Book book = management.createBook(request.id(), request.title(), request.author());
-        return BookResponse.fromDomain(book);
+        return AdminBookResponse.fromDomain(book);
     }
 
     @PutMapping("/{id}")
-    public BookResponse updateBook(@PathVariable String id, @Valid @RequestBody CreateBookRequest request) {
+    public AdminBookResponse updateBook(@PathVariable String id, @Valid @RequestBody CreateBookRequest request) {
         Book book = management.updateBook(id, request.title(), request.author());
-        return BookResponse.fromDomain(book);
+        return AdminBookResponse.fromDomain(book);
     }
 
     @DeleteMapping("/{id}")
